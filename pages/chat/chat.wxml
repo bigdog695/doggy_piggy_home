@@ -1,0 +1,55 @@
+<!--chat.wxml-->
+<view class="chat-container">
+  <!-- 头部 -->
+  <view class="header">
+    <view class="header-title">AI助手</view>
+    <view class="clear-button" bindtap="clearChat">清空</view>
+  </view>
+
+  <!-- 消息列表 -->
+  <scroll-view 
+    scroll-y="true" 
+    class="message-list" 
+    style="height: {{scrollViewHeight}}px;" 
+    scroll-top="{{scrollTop}}"
+    scroll-with-animation="true"
+    id="message-container"
+  >
+    <block wx:for="{{messages}}" wx:key="index">
+      <view class="message {{item.role === 'user' ? 'user-message' : 'system-message'}}">
+        <view class="avatar">
+          <image src="{{item.role === 'user' ? '/assets/user-avatar.png' : '/assets/ai-avatar.png'}}" mode="aspectFill"></image>
+        </view>
+        <view class="content">
+          <text space="emsp" decode="{{true}}">{{item.content}}</text>
+        </view>
+      </view>
+    </block>
+    
+    <!-- 加载中提示 -->
+    <view class="loading-container" wx:if="{{loading}}">
+      <view class="loading-dots">
+        <view class="loading-dot"></view>
+        <view class="loading-dot"></view>
+        <view class="loading-dot"></view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 输入区域 -->
+  <view class="input-container" style="bottom: {{inputBottom}}px">
+    <input 
+      class="input-field" 
+      value="{{inputValue}}" 
+      placeholder="发送消息给AI助手..." 
+      bindinput="onInputChange" 
+      bindfocus="inputFocus"
+      bindblur="inputBlur"
+      confirm-type="send"
+      bindconfirm="sendMessage"
+    />
+    <view class="send-button {{inputValue ? 'active' : ''}}" bindtap="sendMessage">
+      <image src="/assets/send-icon.png" mode="aspectFit"></image>
+    </view>
+  </view>
+</view> 

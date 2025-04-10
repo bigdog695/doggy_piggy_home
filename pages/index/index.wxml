@@ -1,0 +1,22 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="logo-container">
+    <image class="logo" src="/assets/logo.png" mode="aspectFit"></image>
+    <view class="title">AI助手</view>
+  </view>
+
+  <view class="user-info">
+    <block wx:if="{{hasUserInfo}}">
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </block>
+    <block wx:else>
+      <view class="welcome">{{motto}}</view>
+    </block>
+  </view>
+  
+  <view class="button-container">
+    <button wx:if="{{canIUseGetUserProfile}}" bindtap="getUserProfile" class="login-btn" hover-class="button-hover">授权登录</button>
+    <button bindtap="startChat" class="start-btn" hover-class="button-hover">开始聊天</button>
+  </view>
+</view> 
